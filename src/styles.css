@@ -1,0 +1,56 @@
+:root {
+    font-family: "Roboto", "sans-serif";
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    background-color: #0d142a;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    cursor: pointer;
+}
+
+.logo > img {
+    height: 80px;
+}
+
+.search-bar {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.search-bar > input[type=text] {
+    font-size: 1.2rem;
+    padding: 10px;
+    width: 300px;
+}
+
+main {
+    background-color: #e7eaea;
+    flex: 1;
+}

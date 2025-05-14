@@ -1,3 +1,5 @@
+import "./styles.css"
+
 // FUNCTIONS
 async function getWeatherData(city) {
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(city)}?unitGroup=us&key=979A9ED9G6FF9SL5ZR5U5PUSQ&contentType=json`, {mode:"cors"});
