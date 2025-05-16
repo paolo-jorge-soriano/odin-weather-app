@@ -18,7 +18,7 @@ async function displayWeatherData(city) {
         const weatherOverviewHeader = document.querySelector(".weather-overview-header");
         weatherOverviewHeader.innerHTML = `
             <div class="date-time">
-                <h2>${data.days[0].datetime}</h2>
+                <h2>${formatDate(data.days[0].datetime)}</h2>
                 <h2>As of ${formatTime(data.currentConditions.datetime)}</h2>
             </div>
 
@@ -72,8 +72,18 @@ async function displayWeatherData(city) {
     }
 }
 
-function formatTime(time) {
-    let [hour, minute] = time.split(":");
+function formatDate(dateInput) {
+    const date = new Date(dateInput);
+
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
+
+function formatTime(timeInput) {
+    let [hour, minute] = timeInput.split(":");
     const period = (hour >= 12 && hour != 24) ? "PM" : "AM";
 
     hour = hour % 12 || 12;
@@ -95,6 +105,6 @@ searchCityBtn.addEventListener("click", () => {
 });
 
 // Initialize
-document.addEventListener("DOMContentLoaded", () => {
-    displayWeatherData("London");
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     displayWeatherData("London");
+// });
