@@ -66,6 +66,19 @@ async function displayWeatherData(city) {
                 <p>${data.currentConditions.uvindex}</p>
             </div>
         `;
+
+        const forecastGrid = document.querySelector(".forecast-grid");
+        forecastGrid.innerHTML = "";
+        for (let i = 1; i <= 10; i++) {
+            forecastGrid.innerHTML += `
+                <div class="forecast-item">
+                    <h4>${formatDate(data.days[i].datetime)}</h4>
+                    <img src="${weatherIconsDirectory(`./${data.days[i].icon}.svg`)}">
+                    <p>${data.days[i].conditions}</p>
+                    <p>${data.days[i].temp}°F</p>
+                </div>
+            `;
+        }
     }
     catch(e) {
         alert("Failed to retrieve weather data. Please try again." + e);
@@ -105,6 +118,6 @@ searchCityBtn.addEventListener("click", () => {
 });
 
 // Initialize
-// document.addEventListener("DOMContentLoaded", () => {
-//     displayWeatherData("London");
-// });
+document.addEventListener("DOMContentLoaded", () => {
+    displayWeatherData("London");
+});
