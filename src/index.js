@@ -1,6 +1,7 @@
 import "./styles.css"
 
 const weatherIconsDirectory = require.context('./images/weather-icons', false, /\.svg$/);
+let isFahrenheit = true;
 
 // FUNCTIONS
 async function getWeatherData(city) {
@@ -33,7 +34,7 @@ async function displayWeatherData(city) {
 
         const weatherOverviewFooter = document.querySelector(".weather-overview-footer");
         weatherOverviewFooter.innerHTML = `
-            <h1>${data.currentConditions.temp}°F</h1>
+            <h1 class="temp-value" data-temp-f="${data.currentConditions.temp}°F" data-temp-c="${fahrenheitToCelsius(data.currentConditions.temp)}°C">${formatTemperature(data.currentConditions.temp)}</h1>
             <h3>${data.currentConditions.conditions}</h3>
         `;
 
@@ -75,7 +76,7 @@ async function displayWeatherData(city) {
                     <h4>${formatDate(data.days[i].datetime)}</h4>
                     <img src="${weatherIconsDirectory(`./${data.days[i].icon}.svg`)}">
                     <p>${data.days[i].conditions}</p>
-                    <p>${data.days[i].temp}°F</p>
+                    <p class="temp-value" data-temp-f="${data.days[i].temp}°F" data-temp-c="${fahrenheitToCelsius(data.days[i].temp)}°C">${formatTemperature(data.days[i].temp)}</p>
                 </div>
             `;
         }
@@ -83,6 +84,19 @@ async function displayWeatherData(city) {
     catch(e) {
         alert("Failed to retrieve weather data. Please try again." + e);
     }
+}
+
+function formatTemperature(temp) {
+    if (isFahrenheit) {
+        return `${temp}°F` 
+    }
+    else {
+        return `${((temp - 32) * 5 / 9).toFixed(1)}°C`
+    }
+}
+
+function fahrenheitToCelsius(temp) {
+    return ((temp - 32) * 5 / 9).toFixed(1);
 }
 
 function formatDate(dateInput) {
@@ -114,6 +128,38 @@ searchCityBtn.addEventListener("click", () => {
     }
     else {
         alert("Please enter a city.");
+    }
+});
+
+const fahrenheitBtn = document.querySelector(".fahrenheit-btn");
+const celsiusBtn = document.querySelector(".celsius-btn");
+fahrenheitBtn.addEventListener("click", () => {
+    if (isFahrenheit) {
+        return;
+    }
+    else {
+        isFahrenheit = true;
+        celsiusBtn.classList.toggle("active");
+        fahrenheitBtn.classList.toggle("active");
+        const tempValue = document.querySelectorAll(".temp-value");
+        tempValue.forEach(element => {
+            element.textContent = `${element.dataset.tempF}`
+        });
+    }
+});
+
+celsiusBtn.addEventListener("click", () => {
+    if (!isFahrenheit) {
+        return;
+    }
+    else {
+        isFahrenheit = false;
+        celsiusBtn.classList.toggle("active");
+        fahrenheitBtn.classList.toggle("active");
+        const tempValue = document.querySelectorAll(".temp-value");
+        tempValue.forEach(element => {
+            element.textContent = `${element.dataset.tempC}`
+        });
     }
 });
 

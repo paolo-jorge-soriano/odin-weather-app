@@ -52,6 +52,34 @@ header {
     width: 300px;
 }
 
+.temperature-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.temperature-toggle > * {
+    color: lightgrey
+}
+
+.temperature-toggle > button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.active {
+    color: white !important;
+    transform: scale(1.2);
+}
+
+.temperature-toggle > * {
+    margin: 0;
+    padding: 0;
+}
+
 main {
     display: flex;
     justify-content: center;
